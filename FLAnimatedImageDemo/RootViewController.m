@@ -86,6 +86,7 @@
         self.imageView2 = [[FLAnimatedImageView alloc] init];
         self.imageView2.contentMode = UIViewContentModeScaleAspectFill;
         self.imageView2.clipsToBounds = YES;
+        self.imageView2.isReverse = YES;
     }
     [self.view addSubview:self.imageView2];
     self.imageView2.frame = CGRectMake(0.0, 577.0, 379.0, 447.0);
