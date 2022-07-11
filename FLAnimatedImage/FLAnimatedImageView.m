@@ -86,6 +86,7 @@
 
 - (void)commonInit
 {
+    self.isReverse = NO;
     self.runLoopMode = [[self class] defaultRunLoopMode];
 }
 
@@ -338,6 +339,10 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
     return isAnimating;
 }
 
+- (void)setIsReverse:(BOOL)isReverse {
+    _isReverse = isReverse;
+}
+
 
 #pragma mark Highlighted Image Unsupport
 
@@ -394,8 +399,8 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
             // While-loop first inspired by & good Karma to: https://github.com/ondalabs/OLImageView/blob/master/OLImageView.m
             while (self.accumulator >= delayTime) {
                 self.accumulator -= delayTime;
-                self.currentFrameIndex++;
-                if (self.currentFrameIndex >= self.animatedImage.frameCount) {
+                self.isReverse ? self.currentFrameIndex-- : self.currentFrameIndex++;
+                if (self.currentFrameIndex >= self.animatedImage.frameCount || self.currentFrameIndex < 0) {
                     // If we've looped the number of times that this animated image describes, stop looping.
                     self.loopCountdown--;
                     if (self.loopCompletionBlock) {
@@ -406,7 +411,11 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
                         [self stopAnimating];
                         return;
                     }
-                    self.currentFrameIndex = 0;
+                    if (self.isReverse) {
+                        self.currentFrameIndex = self.animatedImage.frameCount;
+                    } else {
+                        self.currentFrameIndex = 0;
+                    }
                 }
                 // Calling `-setNeedsDisplay` will just paint the current frame, not the new frame that we may have moved to.
                 // Instead, set `needsDisplayWhenImageBecomesAvailable` to `YES` -- this will paint the new image once loaded.
@@ -421,7 +430,7 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
 #endif
         }
     } else {
-        self.currentFrameIndex++;
+        self.isReverse ? self.currentFrameIndex-- : self.currentFrameIndex++;
     }
 }
 
