@@ -113,7 +113,7 @@
         
         self.currentFrame = animatedImage.posterImage;
         if (self.isReverse) {
-            self.currentFrameIndex = animatedImage.frameCount;
+            self.currentFrameIndex = animatedImage.frameCount - 1;
         } else {
             self.currentFrameIndex = 0;
         }
@@ -345,7 +345,7 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
 
 - (void)setIsReverse:(BOOL)isReverse {
     _isReverse = isReverse;
-    self.currentFrameIndex = self.animatedImage.frameCount;
+    self.currentFrameIndex = self.animatedImage.frameCount - 1;
 }
 
 
@@ -417,7 +417,7 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
                         return;
                     }
                     if (self.isReverse) {
-                        self.currentFrameIndex = self.animatedImage.frameCount;
+                        self.currentFrameIndex = self.animatedImage.frameCount - 1;
                     } else {
                         self.currentFrameIndex = 0;
                     }
