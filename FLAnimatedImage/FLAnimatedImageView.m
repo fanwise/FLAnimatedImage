@@ -111,10 +111,11 @@
         
         _animatedImage = animatedImage;
         
-        self.currentFrame = animatedImage.posterImage;
         if (self.isReverse) {
+            self.currentFrame = [animatedImage imageLazilyCachedAtIndex:animatedImage.frameCount - 1];
             self.currentFrameIndex = animatedImage.frameCount - 1;
         } else {
+            self.currentFrame = animatedImage.posterImage;
             self.currentFrameIndex = 0;
         }
         if (animatedImage.loopCount > 0) {
