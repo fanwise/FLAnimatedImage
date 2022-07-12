@@ -112,7 +112,11 @@
         _animatedImage = animatedImage;
         
         self.currentFrame = animatedImage.posterImage;
-        self.currentFrameIndex = 0;
+        if (self.isReverse) {
+            self.currentFrameIndex = animatedImage.frameCount;
+        } else {
+            self.currentFrameIndex = 0;
+        }
         if (animatedImage.loopCount > 0) {
             self.loopCountdown = animatedImage.loopCount;
         } else {
@@ -341,6 +345,7 @@ static NSUInteger gcd(NSUInteger a, NSUInteger b)
 
 - (void)setIsReverse:(BOOL)isReverse {
     _isReverse = isReverse;
+    self.currentFrameIndex = self.animatedImage.frameCount;
 }
 
 
